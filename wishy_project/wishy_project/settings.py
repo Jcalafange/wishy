@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'djoser',
+    'usuarios',
 
 ]
+
+AUTH_USER_MODEL = 'usuarios.CustomUser'
 
 CORS_ALLOWED_ORIGINS = [ 
 "http://localhost:8080" 
