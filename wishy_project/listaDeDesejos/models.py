@@ -25,6 +25,8 @@ class Presente(models.Model):
     def __str__(self):
         return self.nome
 
+    def create(self, validated_data):
+        return Presente.objects.create(**validated_data)
     class Meta:
         verbose_name = "Presente"
         verbose_name_plural = "Presentes"
