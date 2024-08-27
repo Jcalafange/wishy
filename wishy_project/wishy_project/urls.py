@@ -16,9 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+from listaDeDesejos.api.viewsets import ListaDeDesejosViewSet , PresenteViewSet
+from usuarios.api.viewsets import UsuariosViewSet
+
+router = routers.DefaultRouter() 
+router.register(r'listaDeDesejos', ListaDeDesejosViewSet, basename="ListaDeDesejos") 
+router.register(r'usuarios', UsuariosViewSet, basename="Usuarios")
+router.register(r'presentes', PresenteViewSet, basename="Presente")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1', include('djoser.urls')),
-    path('api/v1', include('djoser.urls.authtoken')),
+    path('api/v1/', include(router.urls)),
+    path('api/v1/', include('djoser.urls')),
+    path('api/v1/', include('djoser.urls.authtoken')),
 ]

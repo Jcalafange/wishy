@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'djoser',
     'usuarios',
-
+    'listaDeDesejos',
 ]
 
-AUTH_USER_MODEL = 'usuarios.CustomUser'
+AUTH_USER_MODEL = 'usuarios.Usuarios'
 
 CORS_ALLOWED_ORIGINS = [ 
 "http://localhost:8080" 
