@@ -1,73 +1,26 @@
 <template>
-  <nav>
-    <div class="nav-wrapper">
-      <div class="logo">
-        <router-link to="/">Wishy</router-link>
-      </div>
-      <ul class="nav-links">
-        <li v-if="user">
-          Bem-vindo, {{ user }}
-        </li>
-        <li v-else>
-          <router-link to="/login">Login</router-link>
-        </li>
-        <li v-if="user">
-          <a href="#" @click.prevent="logout">Sair</a>
-        </li>
-      </ul>
+  <v-app-bar app color="primary" dark>
+    <v-toolbar-title>MeuApp</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <div v-if="authStore.user">
+      Bem-vindo, {{ authStore.user.first_name }}
+      <v-btn text @click="logout">Sair</v-btn>
     </div>
-  </nav>
+    <div v-else>
+      <v-btn text @click="$router.push('/login')">Login</v-btn>
+    </div>
+  </v-app-bar>
 </template>
 
-<script>
-export default {
-  name: 'Navbar',
-  data() {
-    return {
-      user: null,
-    };
-  },
-  created() {
-    this.user = localStorage.getItem('user');
-  },
-  methods: {
-    logout() {
-      localStorage.removeItem('user');
-      this.user = null;
-      this.$router.push('/login');
-    },
-  },
-  watch: {
-    // Observa mudanças na rota para atualizar o usuário
-    $route() {
-      this.user = localStorage.getItem('user');
-    },
-  },
+<script setup>
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+
+const router = useRouter();
+const authStore = useAuthStore();
+
+const logout = () => {
+  authStore.logout();
+  router.push('/login');
 };
 </script>
-
-<style scoped>
-.nav-wrapper {
-  display: flex;
-  justify-content: space-between;
-  background-color: #f35621;
-  padding: 10px 20px;
-}
-.logo a {
-  color: #fff;
-  font-size: 24px;
-  text-decoration: none;
-}
-.nav-links {
-  list-style: none;
-  display: flex;
-  align-items: center;
-}
-.nav-links li {
-  margin-left: 20px;
-}
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-}
-</style>

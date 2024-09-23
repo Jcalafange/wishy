@@ -1,8 +1,10 @@
 <template>
-  <div id="app">
+  <v-app>
     <Navbar />
-    <router-view />
-  </div>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -15,7 +17,3 @@ export default {
   },
 };
 </script>
-
-<style>
-/* Estilos globais opcionais */
-</style>
